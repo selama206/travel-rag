@@ -2,6 +2,10 @@
 A local RAG pipeline for querying personal travel itineraries, built with [ChromaDB](https://www.trychroma.com/), [mixedbread-ai/mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1), and [Claude](https://www.anthropic.com/claude).
 ChromaDB was chosen for its zero-infrastructure setup with no server required and no external dependencies. mxbai-embed-large-v1 was selected as the embedding model for its large parameter count (335M) producing richer semantic representations, open source access, and compatibility with ChromaDB.
 
+Text is chunked at the sentence level with a 2-sentence overlap to preserve context across segments while maintaining retrieval precision. Retrieved results are filtered using a distance threshold of 0.5 to increase semantically relevant matches in the final prompt.
+
+For transparency and debugging, all retrieved chunks are logged with their associated distance score and labeled as either RELEVANT (included in the prompt, less than 0.5 threshold) or FILTERED (excluded, greater than 0.5 distance threshold).
+
 ## Architecture
 ```
 question → embed (mxbai-embed-large-v1) → similarity search (ChromaDB) → ranked chunks → Claude → answer
