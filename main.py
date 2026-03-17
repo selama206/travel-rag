@@ -19,7 +19,7 @@ COLLECTION_NAME = "travel_itineraries"
 chroma_client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
 embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
+    model_name="mixedbread-ai/mxbai-embed-large-v1"
 )
 
 collection = chroma_client.get_or_create_collection(
