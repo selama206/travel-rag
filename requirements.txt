@@ -1,0 +1,11 @@
+# requirements.txt
+# this file lists all the python libraries this project needs
+# install everything at once by running: pip install -r requirements.txt
+
+fastapi             # the API framework that creates your endpoints
+uvicorn             # runs the fastapi server locally
+anthropic           # talks to claude
+chromadb            # local vector database that stores your embeddings
+sentence-transformers  # converts text to vectors locally for free, no API cost
+requests            # lets cli.py make HTTP calls to the API
+pytest
