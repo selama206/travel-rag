@@ -1,6 +1,6 @@
 # Overview
-A local RAG pipeline for querying personal travel itineraries, built with [ChromaDB](https://www.trychroma.com/), [mixedbread-ai/mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1), and [Claude](https://www.anthropic.com/claude).
-ChromaDB was chosen for its zero-infrastructure setup with no server required and no external dependencies. mxbai-embed-large-v1 was selected as the embedding model for its large parameter count (335M) producing richer semantic representations, open source access, and compatibility with ChromaDB.
+A local RAG pipeline for querying personal travel itineraries, built with [ChromaDB](https://www.trychroma.com/), [mixedbread-ai/mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1), and [Claude](https://www.anthropic.com/claude) API. 
+ChromaDB was chosen for its zero-infrastructure setup with no server required and no external dependencies. mxbai-embed-large-v1 was selected as the embedding model for its large parameter count (335M) producing richer semantic representations, open source access, and compatibility with ChromaDB. Claude LLM API was selected after comparing output against OpenAI's LLM API and finding Claude's output more natural-sounding for travel recommendations.
 
 Text is chunked at the sentence level with a 2-sentence overlap to preserve context across segments while maintaining retrieval precision. Retrieved results are filtered using a distance threshold of 0.5 to increase semantically relevant matches in the final prompt.
 
