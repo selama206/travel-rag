@@ -6,11 +6,14 @@ Text is chunked at the sentence level with a 2-sentence overlap to preserve cont
 
 For transparency and debugging, all retrieved chunks are logged with their associated distance score and labeled as either RELEVANT (included in the prompt, less than 0.5 threshold) or FILTERED (excluded, greater than 0.5 distance threshold).
 
+Travel recommendation prompt was developed following Claude's [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
+
 ## Architecture
 ```
 question → embed (mxbai-embed-large-v1) → similarity search (ChromaDB) → ranked chunks → Claude → answer
 
 ```
+
 
 ## Known limitations and future improvements
 - **Metadata filtering** — all chunks are searched regardless of relevance. Trip-level metadata (country, city, year, themes) extracted at ingest time would allow ChromaDB to pre-filter before running similarity search, improving both precision and latency.
