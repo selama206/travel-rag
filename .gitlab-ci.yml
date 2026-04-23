@@ -1,0 +1,45 @@
+# https://docs.gitlab.com/ee/ci/yaml/ — GitHub equivalent: .github/workflows/ci.yml
+
+stages:
+  - lint
+  - test
+  - build
+
+variables:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PIP_NO_CACHE_DIR: "1"
+
+# Python 3.12 is a good default; align with CLAUDE.md (3.10+).
+default:
+  image: python:3.12
+
+lint:
+  stage: lint
+  before_script:
+    - python -m pip install --upgrade pip
+    - python -m pip install ruff
+  script:
+    - ruff check main.py cli.py
+
+test:
+  stage: test
+  before_script:
+    - python -m pip install --upgrade pip
+    - python -m pip install -r requirements.txt
+  script:
+    - export ANTHROPIC_API_KEY=dummy
+    - python -m pytest -q
+  needs:
+    - job: lint
+
+build:
+  stage: build
+  before_script:
+    - python -m pip install --upgrade pip
+    - python -m pip install -r requirements.txt
+  script:
+    - export ANTHROPIC_API_KEY=dummy
+    - python -m compileall -q main.py cli.py
+    - python -c "import main; import cli; print('import ok')"
+  needs:
+    - job: test
