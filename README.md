@@ -44,5 +44,5 @@ Travel-rag/
 ```bash
 pip install -r requirements.txt
 Terminal 1: uvicorn main:app --reload
-Terminal 2: python cli.py
+Terminal 2: python3 cli.py
 ```

@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from contextlib import asynccontextmanager
@@ -165,6 +166,9 @@ Question: {question}
         raise Exception("could not connect to Anthropic API — check your internet connection")
     except anthropic.APIStatusError as e:
         raise Exception(f"Anthropic API error {e.status_code}: {e.message}")
+
+    u = message.usage
+    print(f"Token usage input: {u.input_tokens}, output: {u.output_tokens}")
 
     return {
         "answer": message.content[0].text,

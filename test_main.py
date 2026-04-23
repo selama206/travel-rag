@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import pytest
 from unittest.mock import MagicMock, patch
 
@@ -46,6 +48,7 @@ def test_query_returns_answer_and_sources(mock_anthropic, mock_collection):
 
     mock_message = MagicMock()
     mock_message.content = [MagicMock(text="You should visit Tokyo in spring.")]
+    mock_message.usage = SimpleNamespace(input_tokens=0, output_tokens=0)
     mock_anthropic.messages.create.return_value = mock_message
 
     result = query("Where should I travel?")
@@ -67,6 +70,7 @@ def test_query_filters_high_distance_chunks(mock_anthropic, mock_collection):
 
     mock_message = MagicMock()
     mock_message.content = [MagicMock(text="Here is an answer.")]
+    mock_message.usage = SimpleNamespace(input_tokens=0, output_tokens=0)
     mock_anthropic.messages.create.return_value = mock_message
 
     result = query("What did I do?")
